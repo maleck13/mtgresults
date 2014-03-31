@@ -1,0 +1,47 @@
+<div class="header" style="margin-bottom: 30px;">
+    <ul class="nav nav-pills pull-right">
+        <li class="active"><a ng-href="#">Home</a></li>
+        <li><a ng-href="#/login">Login</a></li>
+        <li><a ng-href="#/register">Register</a></li>
+    </ul>
+    <h3 class="text-muted">mtgresults</h3>
+</div>
+<div class="col-md-3 well">
+    <ul>
+        <li><a ng-href="#/dashboard/results">Results</a></li>
+        <li><a ng-href="#/dashboard/teams">Teams</a></li>
+    </ul>
+</div>
+<div class="col-md-9" ng-controller="DashboardCtrl">
+    <div class="col-md-12 results" ng-show="{{showresult}}">
+        <table xui-table="test" table-headers="TableHeader" table-data="List" items-per-page='10' page-window='PageSize' table-pager='true' table-filter='searchfn(input)' table-filter-factor='search'>
+            <tbody>
+            <tr>
+                <td class="id" data-fileid="{{row.id}}">{{row.id}}</td>
+                <td class="name">{{row.name }}</td>
+                <td class="description">{{row.description}}</td>
+                <td class="field3">{{row.field3}}</td>
+                <td class="field4"> <i <i ng-class="{'icon-ok-sign': !!row.field4 , 'icon-circle-blank': !row.field4}"></i> </td>
+                <td class="Action">
+                    <button ng-click='$parent.$parent.open(row.id)'>test</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12 team" ng-show="{{showteams}}" ng-init="addTeam=false">
+        <button ng-click="addNewTeam=!addNewTeam" class="pull-right">Add Team</button>
+        <div ng-show="addNewTeam" class="col-md-12">
+            <form >
+                <div class="form-group">
+                    <label for="teamName">Team Name:</label>
+                    <input type="teamName" ng-model="teamName" class="form-control" id="teamName" name="teamName" placeholder="Enter Team Name" />
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
