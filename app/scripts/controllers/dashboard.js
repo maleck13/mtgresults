@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mtggauntletApp')
-  .controller('DashboardCtrl', function ($scope, Results, $location, $route, $routeParams,TableHeader) {
+  .controller('DashboardCtrl', function ($scope, Results, $location, $route, $routeParams,TableHeader,Teams) {
         console.log("route params ", $routeParams);
 
 
@@ -81,10 +81,27 @@ angular.module('mtggauntletApp')
     function teamsAction($scope){
       $scope.showteams = true;
       $scope.showresult = false;
+      $scope.Teams = [];
+      Teams.listTeams(function (err, ok){
+          $scope.Teams = ok;
+      });
     }
 
     $scope.addTeam = function (){
+      console.log("add team");
       $scope.addNewTeam = true;
+      Teams.addTeam(this.teamName,function (err, ok){
+        console.log("added team ", err, ok);
+      });
+      return false;
+    };
+
+    $scope.editTeam = function (id){
+      console.log("called row clieck ", id);
+      $location.url('/team/'+id);
+    }
+    $scope.deleteTeam = function (id){
+
     }
 
 

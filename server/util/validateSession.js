@@ -20,7 +20,7 @@ module.exports = function (req,res,next){
     else if(sess && sess.user){
       if(sess.user.active){
         req.attributes = req.attributes || {};
-        res.attributes.user = sess.user.toJson();
+        req.attributes.user = sess.user.toObject();
         return next();
       }else{
         return invalid(res);

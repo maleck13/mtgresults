@@ -22,7 +22,8 @@ app.use(app.router);
 
 var controllers = {
   "result":require('./results'),
-  "user":require('./users')
+  "user":require('./users'),
+  "team":require('./teams')
 }
 
 app.post('/api/result',controllers.result(app).add);
@@ -32,6 +33,10 @@ app.get('/api/result',controllers.result(app).list);
 
 app.post('/api/user',controllers.user(app).add);
 app.post('/api/user/login',controllers.user(app).login);
+
+app.post('/api/team',controllers.team(app).add);
+app.get('/api/teams',controllers.team(app).list);
+app.del('/api/team/:teamId',controllers.team(app).remove);
 
 db.connect(function (err){
   var server = app.listen(3000, function() {

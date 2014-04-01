@@ -5,7 +5,8 @@ var MODEL_NAMES = {
   "FORMAT_MODEL":"Format",
   "TEAM_MODEL":"Team",
   "USER_MODEL":"User",
-  "SESSION_MODEL":"Session"
+  "SESSION_MODEL":"Session",
+  "RESULT_MODEL":"Result"
 };
 
 var FormatSchema = mongoose.Schema({
@@ -14,7 +15,7 @@ var FormatSchema = mongoose.Schema({
 
 
 var TeamSchema = mongoose.Schema({
-  "name":String,
+  "name":{type:String, required:true},
   "members":[UserSchema],
   "owner":{type: mongoose.Schema.Types.ObjectId, ref: MODEL_NAMES.USER_MODEL, required: true }
 });

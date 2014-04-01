@@ -1,4 +1,6 @@
 var logger = require('./util/loggerFactory').mainLog;
+var response = require('./util/response')();
+
 
 module.exports = function (app){
 
