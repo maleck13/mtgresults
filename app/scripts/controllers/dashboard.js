@@ -96,6 +96,11 @@ angular.module('mtggauntletApp')
       return false;
     };
 
+    $scope.addResult = function (){
+      console.log("add result" ,this);
+      return false;
+    };
+
     $scope.editTeam = function (id){
       console.log("called row clieck ", id);
       $location.url('/team/'+id);

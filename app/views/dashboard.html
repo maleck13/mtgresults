@@ -13,8 +13,75 @@
     </ul>
 </div>
 <div class="col-md-9" ng-controller="DashboardCtrl">
-    <div class="col-md-12 results" ng-show="{{showresult}}">
-        <table xui-table="test" table-headers="TableHeader" table-data="List" items-per-page='10' page-window='PageSize' table-pager='true' table-filter='searchfn(input)' table-filter-factor='search'>
+    <div class="col-md-12 results" ng-show="{{showresult}}" ng-init="addNewRes=false">
+        <button ng-click="addNewRes=!addNewRes" class="pull-right">Add Result</button>
+        <div ng-show="addNewRes" class="col-md-12">
+            <form ng-submit="addResult()" ng-controller="DashboardCtrl" class="form-horizontal">
+                <div class="form-group">
+                    <label for="teamName">Team Name:</label>
+                    <select name="teamName" ng-model="teamName" class="form-control">
+                        <option value="myTeam">myTeam</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="format">Format:</label>
+                    <select name="format" id="format" ng-model="format" class="form-control">
+                        <option value="standard">Standard</option>
+                        <option value="block">Block</option>
+                        <option value="modern">Modern</option>
+                        <option value="legacy">Legacy</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="deck1">Deck Name 1:</label>
+                    <input type="text" ng-model="deck1" class="form-control" id="deck1" name="deck1" placeholder="Enter First Deck Name" />
+                </div>
+                <div class="form-group">
+                    <label for="player1">Player Name 1:</label>
+                    <input type="text" ng-model="player1" class="form-control" id="player1" name="player1" placeholder="Enter First Deck Player's Name" />
+                </div>
+                <div class="form-group">
+                    <label for="deck1">Deck Name 2:</label>
+                    <input type="text" ng-model="deck2" class="form-control" id="deck2" name="deck2" placeholder="Enter Second Deck Name" />
+                </div>
+                <div class="form-group">
+                    <label for="player2">Player Name 2:</label>
+                    <input type="text" ng-model="player2" class="form-control" id="player2" name="player2" placeholder="Enter Second Deck Player's Name" />
+                </div>
+                <div class="form-group">
+                    <label for="Game1">Game One Result:</label>
+                    <select name="game1" id="game1" class="form-control">
+                        <option value="">Select Winner</option>
+                        <option value="{{deck1}}">{{deck1}}</option>
+                        <option value="{{deck2}}">{{deck2}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Game2">Game Two Result:</label>
+                    <select name="game2" id="game2" class="form-control">
+                        <option value="">Select Winner</option>
+                        <option value="{{deck1}}">{{deck1}}</option>
+                        <option value="{{deck2}}">{{deck2}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Game3">Game Three Result:</label>
+                    <select name="game3" id="game3" class="form-control">
+                        <option value="">Select Winner</option>
+                        <option value="{{deck1}}">{{deck1}}</option>
+                        <option value="{{deck2}}">{{deck2}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes:</label>
+                    <textarea ng-model="notes" class="form-control" id="notes" name="notes" placeholder="Add additional notes" ></textarea>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+
+            </form>
+
+        </div>
+        <table ng-hide="addNewRes" xui-table="test" table-headers="TableHeader" table-data="List" items-per-page='10' page-window='PageSize' table-pager='true' table-filter='searchfn(input)' table-filter-factor='search'>
             <tbody>
             <tr>
                 <td class="id" data-fileid="{{row.id}}">{{row.id}}</td>

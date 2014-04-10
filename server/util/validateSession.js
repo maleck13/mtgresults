@@ -1,5 +1,6 @@
 var models = require('../models/models');
 var session = models.SESSION_MODEL;
+var user = models.USER_MODEL;
 
 module.exports = function (req,res,next){
   var skip = ["/api/user","/api/user/login"];
@@ -7,28 +8,22 @@ module.exports = function (req,res,next){
     return next();
   }
 
-  var sessionId = req.cookies.get("sessionId");
-  var userSession;
-
-  if(! sessionId){
-   return invalid(res);
-  }
-  session.findOne({"sessionId":sessionId}).populate("user").exec(function (err,sess){
-    if(err){
-      invalid(res);
-    }
-    else if(sess && sess.user){
-      if(sess.user.active){
+  if(req.session && true == req.session.loggedin){
+    user.findOne({"_id":req.session.userId},function (err, user){
+      if(err) return invalid(res);
+      else{
         req.attributes = req.attributes || {};
-        req.attributes.user = sess.user.toObject();
-        return next();
-      }else{
-        return invalid(res);
+        console.log(req.attributes);
+        req.attributes.user = user.toObject()
       }
-    }else{
-      return invalid(res);
-    }
-  });
+      return next()
+    });
+
+  }else{
+    return invalid(res);
+  }
+
+
 
 
   function invalid(res){

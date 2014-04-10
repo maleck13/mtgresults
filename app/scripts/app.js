@@ -38,6 +38,9 @@ var app = angular.module('mtggauntletApp', [
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
+      .when('/logout',{
+        controller : 'LogoutCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

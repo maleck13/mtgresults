@@ -9,8 +9,18 @@ var validateSession = require('./util/validateSession');
 process.env.APP_ENVIRONMENT = "DEV";
 
 var app = express();
+var RedisStore = require('connect-redis')(express);
+
 app.use(express.bodyParser());
-app.use(cookies());
+app.use(express.cookieParser());
+app.use(express.session({
+  store: new RedisStore({
+    host: 'localhost',
+    port: 6379,
+    db: 2
+  }),
+  secret: 'QpA;Z/woSlX.'
+}));
 app.use(express.methodOverride());
 app.use(express.static('../app'));
 app.use(validateSession);
@@ -33,6 +43,7 @@ app.get('/api/result',controllers.result(app).list);
 
 app.post('/api/user',controllers.user(app).add);
 app.post('/api/user/login',controllers.user(app).login);
+app.post('/api/user/logout',controllers.user(app).logout);
 
 app.post('/api/team',controllers.team(app).add);
 app.get('/api/teams',controllers.team(app).list);

@@ -46,10 +46,9 @@ module.exports = function (app){
           if(user.password !== req.body.password){
             callback({"code":401,"msg":"login failed"});
           }else{
-            var sessID = new Date().getTime() + (Math.random() * 10000000);
-            res.cookies.set("sessionId", sessID );
-            var session = new sessionModel({"sessionId":sessID,"user":user._id});
-            session.save(callback);
+            req.session.loggedin = true;
+            req.session.userId = user._id;
+            callback();
           }
         }
       ], function (err, ok){
@@ -62,6 +61,10 @@ module.exports = function (app){
         }
       })
 
+    },
+    "logout" : function (req, res){
+      req.session.loggedin = false;
+      res.end();
     }
   };
 

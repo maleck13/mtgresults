@@ -23,6 +23,16 @@ angular.module('mtggauntletApp')
             console.log(err, status);
             cb({status:status,message:err});
           });
+      },
+      "logout": function (cb){
+        $http({method:"post",url:AppConfig.host + "user/logout"})
+          .success(function (ok){
+            cb(undefined, ok);
+          })
+          .error(function (err, status){
+            console.log(err, status);
+            cb({status:status,message:err});
+          });
       }
     }
   }]);
